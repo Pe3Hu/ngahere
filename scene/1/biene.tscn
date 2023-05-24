@@ -5,9 +5,24 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_u7fty"]
 
 [node name="Biene" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+platform_wall_layers = 2
 script = ExtResource("1_bxs13")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_u7fty")
+one_way_collision = true
+debug_color = Color(0.541176, 0.458824, 0.87451, 0.419608)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+modulate = Color(0.686275, 0, 0.686275, 1)
+gizmo_extents = 20.0
+
+[node name="Feramon" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Feramon" to="." method="_on_feramon_timeout"]

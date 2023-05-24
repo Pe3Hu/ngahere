@@ -21,6 +21,17 @@ func init_num() -> void:
 	num.size.loch.col = 100
 	num.size.loch.row = 100
 	num.size.loch.a = 8
+	
+	num.size.bienenstock = {}
+	num.size.bienenstock.r = num.size.loch.a*2
+	num.size.bienenstock.R = num.size.bienenstock.r*2/sqrt(3)
+	
+	num.size.biene = {}
+	num.size.biene.r = num.size.loch.a
+	
+	
+	num.size.feramon = {}
+	num.size.feramon.a = num.size.loch.a/2
 
 
 func init_dict() -> void:
@@ -67,58 +78,38 @@ func init_dict() -> void:
 			Vector2( 0,-1)
 		]
 	]
+	
+	init_corner()
 
 
-func init_title() -> void:
-	dict.title = {}
-	var path = "res://asset/json/wohnwagen_title_data.json"
-	var array = load_data(path)
+func init_corner() -> void:
+	dict.order = {}
+	dict.order.pair = {}
+	dict.order.pair["even"] = "odd"
+	dict.order.pair["odd"] = "even"
+	var corners = [3,4,6]
+	dict.corner = {}
+	dict.corner.vector = {}
 	
-	for key in array.front().keys():
-		dict.title[key] = []
-	
-	for dict_ in array:
-		for key in dict_.keys():
-			dict.title[key].append(dict_[key])
+	for corners_ in corners:
+		dict.corner.vector[corners_] = {}
+		dict.corner.vector[corners_].even = {}
+		
+		for order_ in dict.order.pair.keys():
+			dict.corner.vector[corners_][order_] = {}
+		
+			for _i in corners_:
+				var angle = 2*PI*_i/corners_-PI/2
+				
+				if order_ == "odd":
+					angle += PI/corners_
+				
+				var vertex = Vector2(1,0).rotated(angle)
+				dict.corner.vector[corners_][order_][_i] = vertex
 
 
 func init_arr() -> void:
-	arr.neighbor = [
-		[
-			Vector2( 1,-1), 
-			Vector2( 1, 0), 
-			Vector2( 1, 1), 
-			Vector2( 0, 1), 
-			Vector2(-1, 0),
-			Vector2( 0,-1)
-		],
-		[
-			Vector2( 0,-1),
-			Vector2( 1, 0),
-			Vector2( 0, 1),
-			Vector2(-1, 1),
-			Vector2(-1, 0),
-			Vector2(-1,-1)
-		]
-	]
-	arr.spin = [
-		[
-			Vector2( 1,-1), 
-			Vector2( 0, 1), 
-			Vector2( 0, 1), 
-			Vector2( 0, 1), 
-			Vector2(-1,-1),
-			Vector2( 0,-1)
-		],
-		[
-			Vector2( 1, 1),
-			Vector2( 0, 1),
-			Vector2(-1, 1),
-			Vector2( 0,-1),
-			Vector2( 0,-1),
-			Vector2( 0,-1)
-		]
-	]
+	pass
 
 
 func init_node() -> void:
@@ -130,6 +121,7 @@ func init_scene() -> void:
 	scene.loch = load("res://scene/0/loch.tscn")
 	scene.bienenstock = load("res://scene/1/bienenstock.tscn")
 	scene.biene = load("res://scene/1/biene.tscn")
+	scene.feramon = load("res://scene/1/feramon.tscn")
 
 
 func init_vec():
@@ -138,10 +130,12 @@ func init_vec():
 
 
 func init_window_size():
+	num.size.window = {}
+	num.size.window.width = ProjectSettings.get_setting("display/window/size/viewport_width")
+	num.size.window.height = ProjectSettings.get_setting("display/window/size/viewport_height")
+	
 	vec.size.window = {}
-	vec.size.window.width = ProjectSettings.get_setting("display/window/size/viewport_width")
-	vec.size.window.height = ProjectSettings.get_setting("display/window/size/viewport_height")
-	vec.size.window.center = Vector2(vec.size.window.width/2, vec.size.window.height/2)
+	vec.size.window.center = Vector2(num.size.window.width/2, num.size.window.height/2)
 
 
 func _ready() -> void:

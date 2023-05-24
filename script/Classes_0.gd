@@ -6,12 +6,14 @@ class Loch:
 	var vec = {}
 	var arr = {}
 	var obj = {}
+	var flag = {}
 	var scene = {}
 
 
 	func _init(input_: Dictionary):
 		vec.grid = input_.grid
 		obj.garten = input_.garten
+		flag.zaun = false
 		init_scene()
 
 
@@ -30,7 +32,7 @@ class Zaun:
 
 	func _init(input_: Dictionary):
 		obj.garten = input_.garten
-		init_scene()
+		#init_scene()
 
 
 	func init_scene() -> void:
@@ -48,6 +50,7 @@ class Garten:
 
 	func _init():
 		init_scene()
+		init_lochs()
 		init_zauns()
 		init_bienenstocks()
 
@@ -58,22 +61,34 @@ class Garten:
 		Global.node.game.get_node("Layer0").add_child(scene.myself)
 
 
-	func init_zauns() -> void:
+	func init_lochs() -> void:
 		arr.loch = []
 		
 		for _i in Global.num.size.loch.col:
+			arr.loch.append([])
+			
 			for _j in Global.num.size.loch.row:
 				var input = {}
 				input.garten = self
 				input.grid = Vector2(_j,_i)
 				var loch = Classes_0.Loch.new(input)
-				arr.loch.append(loch)
+				arr.loch[_i].append(loch)
+
+
+	func init_zauns() -> void:
+		var xs = [0,Global.num.size.loch.col-1]
+		var ys = [0,Global.num.size.loch.row-1]
+		
+		for lochs in arr.loch:
+			for loch in lochs:
+				if xs.has(int(loch.vec.grid.x)) or ys.has(int(loch.vec.grid.y)):
+					loch.scene.myself.set_zaun()
 
 
 	func init_bienenstocks() -> void:
 		arr.bienenstock = []
-		var w = Global.vec.size.window.width
-		var h = Global.vec.size.window.height
+		var w = Global.num.size.loch.col*Global.num.size.loch.a
+		var h = Global.num.size.loch.row*Global.num.size.loch.a
 		var n = 1
 		var gap = 0.1
 		

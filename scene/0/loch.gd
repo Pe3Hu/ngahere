@@ -1,4 +1,4 @@
-extends Polygon2D
+extends StaticBody2D
 
 
 var parent = null
@@ -11,14 +11,12 @@ func set_parent(parent_) -> void:
 
 
 func update_color() -> void:
-	var max_h = 360.0
-	var size = null
+	var color_ = Color.DARK_GRAY
 	
-	var h = 1#float(parent.num.index)/Global.num.index.dreieck
-	var s = 0.75
-	var v = 1
-	var color_ = Color.from_hsv(h,s,v)
-	set_color(color_)
+	if parent.flag.zaun:
+		color_ = Color.BLACK
+	
+	$Polygon2D.set_color(color_)
 
 
 func set_vertexs() -> void:
@@ -29,4 +27,13 @@ func set_vertexs() -> void:
 		var vertex = neighbor*Global.num.size.loch.a/2
 		vertexs.append(vertex)
 	
-	set_polygon(vertexs)
+	$CollisionPolygon2D.set_polygon(vertexs)
+	$Polygon2D.set_polygon(vertexs)
+
+
+func set_zaun() -> void:
+	parent.flag.zaun = true
+	parent.scene.myself.update_color()
+	set_collision_layer_value(2, true)
+	set_collision_mask_value(2, true)
+	$CollisionPolygon2D.visible = parent.flag.zaun

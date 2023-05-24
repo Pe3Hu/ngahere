@@ -16,6 +16,8 @@ script = ExtResource("1_cddh2")
 
 [node name="Loch" type="Node2D" parent="."]
 
+[node name="Feramon" type="Node2D" parent="."]
+
 [node name="Bienenstock" type="Node2D" parent="."]
 
 [node name="Biene" type="Node2D" parent="."]

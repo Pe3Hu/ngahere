@@ -2,5 +2,9 @@
 
 [ext_resource type="Script" path="res://scene/0/loch.gd" id="1_aq4kx"]
 
-[node name="Loch" type="Polygon2D"]
+[node name="Loch" type="StaticBody2D"]
 script = ExtResource("1_aq4kx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]

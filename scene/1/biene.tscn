@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://jn8u43cqmcdo"]
+
+[ext_resource type="Script" path="res://scene/1/biene.gd" id="1_bxs13"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u7fty"]
+
+[node name="Biene" type="CharacterBody2D"]
+script = ExtResource("1_bxs13")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u7fty")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]

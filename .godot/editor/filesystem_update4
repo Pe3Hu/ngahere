@@ -1,6 +1,14 @@
-res://scene/1/feramon.tscn
+res://scene/1/biene.tscn
 res://scene/game/Game.tscn
 res://scene/0/garten.tscn
 res://scene/0/loch.tscn
 res://scene/1/bienenstock.tscn
-res://scene/1/biene.tscn
+res://scene/1/bienenstock.gd
+res://script/Classes_1.gd
+res://scene/1/biene.gd
+res://script/Global.gd
+res://script/Classes_0.gd
+res://scene/game/Game.gd
+res://scene/0/loch.gd
+res://scene/1/feramon.tscn
+res://scene/1/feramon.gd
